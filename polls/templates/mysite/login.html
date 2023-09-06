@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #signup{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    {% if error_msg is not None %}
+    <p><strong>{{ error_msg }}</strong></p>
+    {% endif %}
+    <form action="{% url 'polls:authuser' %}" id="login" method="post">
+        {% csrf_token %}
+        <label for="username">Username: </label>
+        <input type="text" name="username"><br>
+        <label for="pwd">Password: </label>
+        <input type="password" name="pwd"><br>
+        <button type="submit">SUBMIT</button>
+    </form>
+    <br>
+    <button type="button" onclick="func()">New here?</button>
+    <form action="{% url 'polls:newuser' %}" id="signup" method="post">
+        {% csrf_token %}
+        <label for="fname">fname: </label>
+        <input type="text" name="fname"><br>
+        <label for="lname">lname: </label>
+        <input type="text" name="lname"><br>
+        <label for="username">Username: </label>
+        <input type="text" name="username"><br>
+        <label for="pwd">Password: </label>
+        <input type="password" name="pwd"><br>
+        <label for="mail">Email: </label>
+        <input type="email" name="mail"><br>
+        <button type="submit">SUBMIT</button>
+    </form>
+    <br>
+    <button type="button" onclick="func2()">Existing User</button>
+    <script>
+        function func(){
+            document.getElementById("signup").style.display="block"
+            document.getElementById("login").style.display="none"
+        }
+        function func2(){
+            document.getElementById("signup").style.display="none"
+            document.getElementById("login").style.display="block"
+        }
+    </script>
+</body>
+</html>

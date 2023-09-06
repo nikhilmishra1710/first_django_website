@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}"/>
+</head>
+<body>
+    <h1>Welcome to polls website, {{ user.first_name}} {{user.last_name }}</h1>
+    <hr>
+    <h4>Recent polls</h4>
+    {% if latest_question_list %}
+        <ul>
+            {% for question in latest_question_list %}
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a></li>
+                {% else %}
+                    <li><a href="{% url 'polls:Login' %}">{{question.question_text}}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available</p>
+    {% endif %}
+    <h3>
+        Want to add a new poll?
+    </h3>
+    {% if user.is_authenticated %}
+        <a href="{% url 'polls:AddPoll' %}">Click here</a><br>
+    {% else %}
+        <a href="{% url 'polls:Login' %}">Click here</a><br>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a href="{% url 'polls:logout' %}">logout</a>
+    {% endif %}
+</body>
+</html>

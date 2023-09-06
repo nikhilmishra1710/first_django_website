@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+    <form action="{% url 'polls:add' %}" id="Myform" method="post">
+        {% csrf_token %}
+        <label for="ques">
+            Enter your question: 
+        </label>
+        <input type="text" maxlength="200" name="ques" placeholder="Enter your question here"><br>
+        <div id="Myformdiv">
+        <input type="text" maxlength="200" name="choice1" placeholder="Enter your choice here"><br>
+        </div>
+        <input type="number" value=1 hidden name="total_num" id="total_num">
+        <button type="button" onclick="addfunc()">Add Choice field</button>
+        <button type="submit">Submit your question</button>
+    </form>
+    </div>
+    <script>
+        var num=2
+
+        function addfunc(){
+            var ques=document.getElementById("Myformdiv")
+            var newip=document.createElement("input")
+            newip.name="choice"+num
+            newip.maxLength='200'
+            newip.type='text'
+            newip.placeholder="Enter your choice value"
+            ques.appendChild(newip)
+            num++ 
+            document.getElementById("total_num").value=num-1
+        }
+    </script>
+</body>
+</html>
